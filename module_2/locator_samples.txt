@@ -1,0 +1,5 @@
+#fname
+//div/*[@name="L_Name"]
+.form-control.third
+//div/*[@telefon]
+//div/*[@class="form-control fifth"]
