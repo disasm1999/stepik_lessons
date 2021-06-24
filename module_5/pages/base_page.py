@@ -1,5 +1,6 @@
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+import math
 
 class BasePage():
     def __init__(self, browser, url, timeout=10):
@@ -16,7 +17,7 @@ class BasePage():
         except (NoSuchElementException):
             return False
         return True
-
+     
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
