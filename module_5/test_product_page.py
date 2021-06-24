@@ -1,10 +1,40 @@
 from .pages.product_page import ProductPage
-from .pages.basket_page import BasketPage
+import pytest
 
-def test_guest_can_add_product_to_basket(browser, link):
-    link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
+@pytest.mark.parametrize('promo_offer',
+["offer0","offer1","offer2","offer3","offer4","offer5","offer6",pytest.param("offer7", marks=pytest.mark.xfail),"offer8","offer9"])
+def test_guest_can_add_product_to_basket(browser, promo_offer):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo="
+    page = ProductPage(browser, link+promo_offer)
+    page.open()
+    page.add_product_to_basket()
+    page.solve_quiz_and_get_code()
+    page.should_be_product_name()
+    page.should_be_product_price()
+    page.should_be_success_product_name()
+    page.should_be_success_product_price()
+    page.is_success_name_correct()
+    page.is_success_price_correct() 
+
+def test_guest_cant_see_success_message(browser):
+    link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207'
     page = ProductPage(browser, link)
     page.open()
-    page.add_to_basket()
-    page.solve_quiz_and_get_code()
-    page.should_be_add_to_basket()
+    page.should_not_be_success_product_name()
+
+@pytest.mark.xfail()
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207'
+    page = ProductPage(browser, link)
+    page.open()
+    page.add_product_to_basket()
+    page.should_not_be_success_product_name() 
+
+@pytest.mark.xfail()
+def test_message_disappeared_after_adding_product_to_basket(browser):
+    link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207'
+    page = ProductPage(browser, link)
+    page.open()
+    page.add_product_to_basket()
+    page.should_disappear_success_product_name() 
+
