@@ -45,3 +45,23 @@ class ProductPage(BasePage):
         assert self.is_disappeared(*ProductPageLocators.SUCCESS_PRODUCT_NAME), \
             "Success message is presented, but should disappear" 
 
+    def should_be_product_price(self):
+        return self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
+
+
+    def should_be_product_name(self):
+        return self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
+
+    def should_be_success_product_price(self):
+        return self.browser.find_element(*ProductPageLocators.SUCCESS_PRODUCT_PRICE).text
+
+    def should_be_success_product_name(self):
+        return self.browser.find_element(*ProductPageLocators.SUCCESS_PRODUCT_NAME).text
+    
+    def is_success_name_correct(self):
+        assert self.should_be_product_name() == self.should_be_success_product_name(), \
+            'The names of the added product differs from the names of the product'
+    
+    def is_success_price_correct(self):
+        self.should_be_product_price() == self.should_be_success_product_price(), \
+            'The price of the added product differs from the price of the product' 
