@@ -20,7 +20,7 @@ def options(request, user_language):
     options.add_experimental_option('prefs', {'intl.accept_languages': user_language})
     return options
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def browser(options):
     browser = webdriver.Chrome(options=options)
     yield browser
