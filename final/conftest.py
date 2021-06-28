@@ -23,7 +23,17 @@ def options(request, user_language):
     return options
 
 @pytest.fixture
-def browser(options):
-    browser = webdriver.Chrome(options=options)
+def browser(request):
+    browser_name = request.config.getoption("browser_name")
+    browser = None
+    if browser_name == "chrome":
+        print("\nstart chrome browser for test..")
+        browser = webdriver.Chrome()
+    elif browser_name == "firefox":
+        print("\nstart firefox browser for test..")
+        browser = webdriver.Firefox()
+    else:
+        raise pytest.UsageError("--browser_name should be chrome or firefox")
     yield browser
+    print("\nquit browser..")
     browser.quit()
