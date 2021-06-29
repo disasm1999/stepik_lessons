@@ -3,7 +3,7 @@ from selenium import webdriver
 
 language_opt = [
     ("ru", "Добавить в корзину",),
-    ("en-gb", "Add to basket",),
+    ("en-GB", "Add to basket",),
     ("es", "Añadir al carrito",),
     ("fr", "Ajouter au panier",),
 ]
