@@ -12,20 +12,20 @@ def pytest_addoption(parser):
     )
 
 
-@pytest.fixture( scope="session" )
+@pytest.fixture(scope="session")
 def user_language(request):
-    return request.config.getoption( "language" )
+    return request.config.getoption("language")
 
 
-@pytest.fixture( scope="session" )
+@pytest.fixture(scope="session")
 def options(request, user_language):
     options = Options()
-    options.add_experimental_option( 'prefs', {'intl.accept_languages': user_language} )
+    options.add_experimental_option('prefs', {'intl.accept_languages': user_language})
     return options
 
 
 @pytest.fixture
 def browser(options):
-    browser = webdriver.Chrome( options=options )
+    browser = webdriver.Chrome(options=options)
     yield browser
     browser.quit()
